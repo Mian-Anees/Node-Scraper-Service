@@ -1,0 +1,14 @@
+extends layout
+head
+block content
+
+    h1 #{siteName}!
+    //- -app.render("http://www.w3schools.com")
+    //-window.location.href = "http://www.w3schools.com";
+    //- -console.log("TAGS",tags ) 
+    h3 Download Links
+    ul
+      each val in tags
+        li=val 
+        a(href=val, download) Download
+      
