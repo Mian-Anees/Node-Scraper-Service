@@ -1,7 +1,6 @@
 const cheerio = require("cheerio");
 const axios = require("axios");
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
-// var fs = require("fs");
 // var stringify = require("csv-stringify");
 const ObjectsToCsv = require("objects-to-csv");
 
