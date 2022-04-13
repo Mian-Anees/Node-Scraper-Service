@@ -29,7 +29,8 @@ try {
   };
 
   const fetchData = async () => {
-    const siteUrl = `https://gutenberg.org/ebooks/search/?query=genera&submit_search=Go%21`;
+    const siteUrl = 'https://gutenberg.org/ebooks/search/?query=funny&submit_search=Go%21'
+    // const siteUrl = `https://gutenberg.org/ebooks/search/?query=genera&submit_search=Go%21`;
     // const siteUrl =  `http://www.bom.gov.au/climate/dwo/IDCJDW${page}.latest.shtml`;
     // const siteUrl = `https://catalog.data.gov/dataset?page=${page}`;
     return await axios
@@ -42,44 +43,20 @@ try {
   };
 
   const parseData = async ($) => {
-    $("a").each(async (_, element) => {
-      // console.log(element)
-      // let href = element.attribs.href;
-      if (element.parent.name == "li") {
-          element.parent.children.map((children) => {
-            if (children.children) {
-              console.log(children.children[0],'+++++++++++++++++++')
-              // return children.children[0].children
-              // map((res) => {
-              //   if (res.name == "span") {
-              //     console.log(res,'--------')
-              //     // return res.children;
-              //   }
-              //   return ''
-              // });
-            }
-          })
+    let booksArray = []
+    $("span").each(async (index, element) => {
+      if (element.children && element.children[0] && element.children[0].data && element.children[0].data.includes('downloads')) {
+        console.log($('ul a')[index].attribs.href, '+++++++++')
+        const bookObject = {
+          title: $("span")[index - 2].children[0].data,
+          auther: $("span")[index - 1].children[0].data,
+          downloads: $("span")[index].children[0].data
+        }
+        booksArray.push(bookObject)
       }
-      // $("ul").each(async (_, elem) => {
-      //   console.log(elem);
-      // });
-      // let title = element.attribs.title;
 
-      // const length = href.length;
-      // const csv =1
-      // const csv = href.substr(length - 4, length - 1) === ".csv";
-      // if (csv) {
-      //   tags.push('http://www.bom.gov.au'+href);
-      // await axios.get('http://www.bom.gov.au'+href).then((res) => {
-      //   const csv = new ObjectsToCsv([{ csv:res.data }]);
-      //   csv.toDisk(`${__dirname}/csvFiles/${Date.now()}.csv`)
-
-      // }).catch((error) => {
-      //   console.log(error)
-      // });
-
-      // }
     });
+    console.log(booksArray, '----')
   };
 
   module.exports = getResults;
